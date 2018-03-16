@@ -37,7 +37,7 @@ class BookActivity : AppCompatActivity(), BookContract.View {
 
     }
 
-    override fun onError() {
+    override fun onError(message: String?) {
         Snackbar.make(main_layout, "TErjadi kesalahan!", Snackbar.LENGTH_SHORT).show()
     }
 
@@ -49,9 +49,12 @@ class BookActivity : AppCompatActivity(), BookContract.View {
         bookTvDesk.text = null
     }
 
-    override fun setErrorEditText(message: String) {
-        bookEtSearch.setText(message)
-        bookEtSearch.requestFocus()
+    override fun setErrorEditText(message: String?) {
+        if (message != null) {
+            bookEtSearch.setError(message)
+            bookEtSearch.requestFocus()
+        } else bookEtSearch.setError(null)
+
 
     }
 

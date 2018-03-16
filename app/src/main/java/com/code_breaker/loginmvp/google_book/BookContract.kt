@@ -10,15 +10,15 @@ interface BookContract {
         fun search(isbn: String)
         fun showLoading(show: Boolean)
         fun onSuccess(book: BookMdl.ItemsBean.VolumeInfoBean)
-        fun onError()
+        fun onError(message:String?)
         fun clearScreen()
-        fun setErrorEditText(message:String)
+        fun setErrorEditText(message:String?)
     }
 
     interface Presenter {
         fun onSearch(isbn: String)
         fun onSuccess(book: BookMdl.ItemsBean.VolumeInfoBean)
-        fun onError()
+        fun onError(message:String?)
         fun setErrorEditText(message:String)
     }
 
