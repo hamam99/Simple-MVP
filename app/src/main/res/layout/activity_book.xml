@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/main_layout"
     android:focusableInTouchMode="true"
-    tools:context="com.code_breaker.loginmvp.google_book.BookActivity">
+    tools:context="com.code_breaker.mvp.google_book.BookActivity">
 
     <ProgressBar
         android:id="@+id/bookProgressBar"

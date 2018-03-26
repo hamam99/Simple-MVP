@@ -1,4 +1,4 @@
-package com.code_breaker.loginmvp
+package com.code_breaker.mvp
 
 import org.junit.Test
 

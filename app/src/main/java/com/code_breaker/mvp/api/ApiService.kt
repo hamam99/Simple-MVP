@@ -1,6 +1,6 @@
 package com.mediatechindo.kakilima.merchant.helper
 
-import com.code_breaker.loginmvp.google_book.BookMdl
+import com.code_breaker.mvp.google_book.BookMdl
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET

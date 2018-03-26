@@ -1,8 +1,7 @@
-package com.code_breaker.loginmvp.google_book
+package com.code_breaker.mvp.google_book
 
-import android.widget.EditText
-import com.code_breaker.loginmvp.base.BasePresenter
-import com.code_breaker.loginmvp.base.BaseView
+import com.code_breaker.mvp.base.BasePresenter
+import com.code_breaker.mvp.base.BaseView
 
 /**
  * Created by akira on 16/03/18.

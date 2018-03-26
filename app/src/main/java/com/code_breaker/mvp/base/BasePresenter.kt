@@ -1,4 +1,4 @@
-package com.code_breaker.loginmvp.base
+package com.code_breaker.mvp.base
 
 /**
  * @author Budi Oktaviyan Suryanto (budioktaviyans@gmail.com)
