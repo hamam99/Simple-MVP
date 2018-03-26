@@ -8,6 +8,19 @@ import com.code_breaker.loginmvp.R
 import kotlinx.android.synthetic.main.activity_book.*
 
 class BookActivity : AppCompatActivity(), BookContract.View {
+    override fun onAttachView() {
+        presenter.onAttach(this)
+    }
+
+    override fun onDetachView() {
+        presenter.onDetach()
+    }
+
+    override fun onDestroy() {
+        onDetachView()
+        super.onDestroy()
+    }
+
 
     lateinit var presenter: BookPresenter
 
@@ -15,13 +28,15 @@ class BookActivity : AppCompatActivity(), BookContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
 
+        bookEtSearch.setText("9780345472328")
+        presenter = BookPresenter()
 
-        presenter = BookPresenter(this)
+        bookBtnSearch.setOnClickListener {
+            val isbn = bookEtSearch.text.toString().trim()
+            presenter.onSearch(isbn)
 
-    }
+        }
 
-    override fun search(isbn: String) {
-        presenter.onSearch("isbn:$isbn")
     }
 
     override fun showLoading(show: Boolean) {
@@ -30,15 +45,15 @@ class BookActivity : AppCompatActivity(), BookContract.View {
     }
 
     override fun onSuccess(book: BookMdl.ItemsBean.VolumeInfoBean) {
-        bookTvTitle.text = book.title
-        bookAuthor.text = book.authors.toString()
-        bookTvPublisher.text = book.publisher
+        bookTvTitle.text = " : " + book.title
+        bookAuthor.text = " : " + book.authors.toString()
+        bookTvPublisher.text = " : " + book.publisher
         bookTvDesk.text = book.description
 
     }
 
     override fun onError(message: String?) {
-        Snackbar.make(main_layout, "TErjadi kesalahan!", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(main_layout, message!!, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun clearScreen() {

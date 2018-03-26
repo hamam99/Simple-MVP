@@ -113,18 +113,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/bookTvTitle"
-        tools:layout_editor_absoluteY="191dp" />
+        app:layout_constraintTop_toBottomOf="@+id/bookTvTitle" />
 
     <TextView
         android:id="@+id/bookTvPublisher"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bookAuthor"
-        tools:layout_editor_absoluteY="217dp" />
+        app:layout_constraintStart_toStartOf="@+id/bookTvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/bookAuthor" />
 
     <TextView
         android:id="@+id/bookTvDesk"
