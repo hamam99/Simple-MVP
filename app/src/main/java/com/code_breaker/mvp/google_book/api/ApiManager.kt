@@ -67,7 +67,7 @@ object ApiManager {
     }
 
 
-    //LOGIN
+    //SEARCH
     fun searchByIsdb(isbn: String) =
             myApiService.searchBookByIsdb("isbn:$isbn")
                     .subscribeOn(Schedulers.io())

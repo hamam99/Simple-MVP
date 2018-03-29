@@ -12,7 +12,7 @@ import com.code_breaker.mvp.R
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class RoomRvAdapter(val mValues: List<BookRoomMdl>) : RecyclerView.Adapter<RoomRvAdapter.ViewHolder>() {
+class RoomRvAdapter(val mValues: List<RoomMdl>) : RecyclerView.Adapter<RoomRvAdapter.ViewHolder>() {
 
     public override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())

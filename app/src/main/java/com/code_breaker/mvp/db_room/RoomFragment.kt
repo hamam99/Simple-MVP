@@ -7,20 +7,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.code_breaker.mvp.R
+import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.fragment_room_main.*
 
-/**
- * A fragment representing a list of Items.
- *
- *
- * Activities containing this fragment MUST implement the [OnListFragmentInteractionListener]
- * interface.
- */
-/**
- * Mandatory empty constructor for the fragment manager to instantiate the
- * fragment (e.g. upon screen orientation changes).
- */
-class RoomFragment : Fragment() {
+
+class RoomFragment : Fragment(), RoomContract.View {
+    override fun loadAll(): Flowable<List<RoomMdl>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun search(title: String): Flowable<List<RoomMdl>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun insert(roomMdl: RoomMdl) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clearScreen() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(roomMdl: RoomMdl) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onAttachView() {
+        presenter?.onAttach(this)
+    }
+
+    override fun onDetachView() {
+        presenter?.onDetach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onDetachView()
+    }
+
+    lateinit var presenter: RoomPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +63,13 @@ class RoomFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        presenter = RoomPresenter()
+
         roomAdd?.setOnClickListener {
 
         }
+
     }
 
     companion object {
@@ -58,3 +87,4 @@ class RoomFragment : Fragment() {
         }
     }
 }
+

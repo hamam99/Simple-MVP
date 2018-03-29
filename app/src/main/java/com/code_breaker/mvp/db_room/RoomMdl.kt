@@ -8,8 +8,8 @@ import android.arch.persistence.room.PrimaryKey
  * Created by akira on 26/03/18.
  */
 
-@Entity
-class BookRoomMdl {
+@Entity(tableName = "book")
+class RoomMdl {
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 
