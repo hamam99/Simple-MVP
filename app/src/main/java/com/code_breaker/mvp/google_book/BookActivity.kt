@@ -30,6 +30,8 @@ class BookActivity : AppCompatActivity(), BookContract.View {
 
         bookEtSearch.setText("9780345472328")
         presenter = BookPresenter()
+        onAttachView()
+
 
         bookBtnSearch.setOnClickListener {
             val isbn = bookEtSearch.text.toString().trim()

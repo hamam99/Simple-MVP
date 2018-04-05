@@ -17,7 +17,7 @@ interface BookContract {
 
     interface Presenter :BasePresenter<View>{
         fun onSearch(isbn: String)
-        fun onSuccess(book: BookMdl.ItemsBean.VolumeInfoBean)
+        fun onSearchSuccess(book: BookMdl.ItemsBean.VolumeInfoBean)
         fun onError(message:String?)
         fun setErrorEditText(message:String)
     }

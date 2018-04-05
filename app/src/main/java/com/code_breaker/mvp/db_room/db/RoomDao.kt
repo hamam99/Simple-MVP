@@ -1,6 +1,7 @@
-package com.code_breaker.mvp.db_room
+package com.code_breaker.mvp.db_room.db
 
 import android.arch.persistence.room.*
+import com.code_breaker.mvp.db_room.RoomMdl
 import io.reactivex.Flowable
 
 /**
@@ -14,10 +15,10 @@ interface RoomDao {
     val getAll: Flowable<List<RoomMdl>>
 
     @Query("SELECT * from book order by id DESC limit 1")
-    fun getLatest(title: String): Flowable<RoomMdl>
+    fun getLatest(): Flowable<RoomMdl>
 
     @Query("SELECT * from book where title LIKE :title")
-    fun search(title: String): Flowable<RoomMdl>
+    fun search(title: String): Flowable<List<RoomMdl>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: RoomMdl)

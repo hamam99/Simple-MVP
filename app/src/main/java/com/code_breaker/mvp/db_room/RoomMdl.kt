@@ -11,16 +11,16 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "book")
 class RoomMdl {
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    var id: Int = 0
 
     @ColumnInfo(name = "title")
-    val title: String? = null
+    var title: String? = null
 
     @ColumnInfo
-    val author: String? = null
+    var author: String? = null
 
     @ColumnInfo
-    val publisher: String? = null
+    var publisher: String? = null
 
 //    @ColumnInfo
 //    private val date: String? = null

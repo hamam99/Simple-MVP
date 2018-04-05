@@ -20,11 +20,11 @@ public class BookPresenter() : BookContract.Presenter {
         view?.showLoading(true)
         view?.setErrorEditText(null)
 
-        val bookInteractor: BookInteractor = BookInteractor(this)
+        val bookInteractor = BookInteractor(this)
         bookInteractor.doSearch(isbn)
     }
 
-    override fun onSuccess(book: BookMdl.ItemsBean.VolumeInfoBean) {
+    override fun onSearchSuccess(book: BookMdl.ItemsBean.VolumeInfoBean) {
         view?.showLoading(false)
         view?.onSuccess(book)
     }

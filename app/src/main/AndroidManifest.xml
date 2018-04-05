@@ -12,14 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login.MainActivity" />
-        <activity android:name=".google_book.BookActivity">
+        <activity android:name=".google_book.BookActivity"></activity>
+        <activity android:name=".db_room.RoomActivity">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
+
         </activity>
-        <activity android:name=".db_room.RoomActivity"></activity>
+        <activity android:name=".MainHome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
