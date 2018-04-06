@@ -1,7 +1,8 @@
 package com.code_breaker.mvp.db_room
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import com.code_breaker.mvp.db_room.db.RoomDb
 import kotlinx.android.synthetic.main.fragment_room_main.*
 
 
-public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(), RoomContract.View {
+public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(), RoomContract.View, RoomRvAdapter.RVListener {
 
     override var mPresenter: RoomPresenter = RoomPresenter()
 
@@ -35,8 +36,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         roomAuthor.setText("JK Rowling")
         roomPublisher.setText("Gak tahu")
 
-        adapter = RoomRvAdapter(list)
+        adapter = RoomRvAdapter(list, this)
         roomRv?.adapter = adapter
+        adapter?.mListener = this
 
         roomAdd?.setOnClickListener {
             val title = roomTitle?.text.toString().trim()
@@ -55,6 +57,7 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         mPresenter?.setDb(db)
         mPresenter.loadAll()
 
+
     }
 
     override fun insertSuccess(message: String) {
@@ -69,7 +72,7 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         if (list.isNotEmpty()) list.clear()
         list.addAll(rooms)
         adapter?.notifyDataSetChanged()
-        Log.e("TAG","Fragment : Load All 1")
+        Log.e("TAG", "Fragment : Load All 1")
 
     }
 
@@ -82,9 +85,6 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun delete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun onSuccess(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
@@ -117,6 +117,21 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         }
     }
 
+    override fun onDelete(item: RoomMdl, position: Int) {
+        var dialog = AlertDialog.Builder(mActivity)
+        dialog.setMessage("Do you want to delete \'${item.title}\' ?")
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
+                    mPresenter?.delete(item)
+                    list?.removeAt(position)
+                    adapter?.notifyDataSetChanged()
+                })
+                .setNegativeButton("No", null)
+                .show()
+    }
+
+    override fun onEdit(item: RoomMdl, position: Int) {
+
+    }
 
 }
 

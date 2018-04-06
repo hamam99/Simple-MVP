@@ -6,6 +6,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Interactor {
+    override fun delete(roomMdl: RoomMdl) {
+        Observable.just(roomMdl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ roomMdl ->
+                    presenter?.getDb()?.bookDao()?.delete(roomMdl)
+                    presenter.onSuccess("Data had been deleted!")
+                }, { throwable ->
+                    throwable.printStackTrace()
+                    presenter.onError(throwable.localizedMessage)
+                })
+    }
+
     override fun loadLatest() {
         presenter?.getDb()?.bookDao()?.getLatest()
                 ?.subscribeOn(Schedulers.io())

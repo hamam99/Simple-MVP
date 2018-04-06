@@ -15,7 +15,6 @@ interface RoomContract {
         fun search(rooms: List<RoomMdl>)
         fun insertSuccess(message: String)
         fun clearScreen()
-        fun delete()
 
         fun onSuccess(message: String)
         fun onError(message: String)
@@ -30,6 +29,7 @@ interface RoomContract {
 
         fun search(title: String)
         fun searchSuccess(rooms: List<RoomMdl>)
+
         fun delete(roomMdl: RoomMdl)
 
         fun onSuccess(message: String)
@@ -48,6 +48,7 @@ interface RoomContract {
         fun insert(roomMdl: RoomMdl)
         fun search(title: String)
         fun loadLatest()
+        fun delete(roomMdl: RoomMdl)
 
     }
 }

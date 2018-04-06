@@ -57,7 +57,7 @@ class RoomPresenter(): RoomContract.Presenter {
     }
 
     override fun delete(roomMdl: RoomMdl) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        interactor?.delete(roomMdl)
     }
 
     override fun onAttach(view: RoomContract.View) {

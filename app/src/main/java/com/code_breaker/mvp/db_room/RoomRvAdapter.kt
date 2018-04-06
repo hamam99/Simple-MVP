@@ -12,13 +12,15 @@ import com.code_breaker.mvp.R
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class RoomRvAdapter(val mValues: List<RoomMdl>) : RecyclerView.Adapter<RoomRvAdapter.ViewHolder>() {
+class RoomRvAdapter(val mValues: List<RoomMdl>, var mListener: RVListener) : RecyclerView.Adapter<RoomRvAdapter.ViewHolder>() {
 
     public override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_room_item, parent, false)
         return ViewHolder(view)
     }
+
+//    var mListener: RVListener?=null
 
     public override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues.get(position)
@@ -28,17 +30,19 @@ class RoomRvAdapter(val mValues: List<RoomMdl>) : RecyclerView.Adapter<RoomRvAda
         holder.mAuthor.text = item.author.toString()
         holder.mPublisher.text = item.publisher.toString()
 
-/*
         holder.mView.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener!!.onListFragmentInteraction(holder.mItem)
-                }
+                mListener?.onEdit(item, position)
             }
         })
-*/
+
+        holder.mView.setOnLongClickListener(object : View.OnLongClickListener {
+            override fun onLongClick(p0: View?): Boolean {
+                mListener?.onDelete(item, position)
+                return true
+            }
+        })
+
     }
 
     public override fun getItemCount(): Int {
@@ -59,5 +63,10 @@ class RoomRvAdapter(val mValues: List<RoomMdl>) : RecyclerView.Adapter<RoomRvAda
             mPublisher = mView.findViewById(R.id.publisher) as TextView
         }
 
+    }
+
+    interface RVListener {
+        fun onDelete(item: RoomMdl, position: Int)
+        fun onEdit(item: RoomMdl, position: Int)
     }
 }
