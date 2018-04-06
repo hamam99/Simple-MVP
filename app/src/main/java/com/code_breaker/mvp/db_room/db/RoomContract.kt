@@ -18,6 +18,10 @@ interface RoomContract {
 
         fun onSuccess(message: String)
         fun onError(message: String)
+
+        fun onAttachView()
+        fun onDetachView()
+
     }
 
     interface Presenter : BasePresenter<View> {

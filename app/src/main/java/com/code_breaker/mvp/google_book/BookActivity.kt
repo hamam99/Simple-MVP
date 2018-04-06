@@ -1,13 +1,20 @@
 package com.code_breaker.mvp.google_book
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.code_breaker.mvp.R
+import com.code_breaker.mvp.base.BaseMVPActivity
 import kotlinx.android.synthetic.main.activity_book.*
 
-class BookActivity : AppCompatActivity(), BookContract.View {
+class BookActivity : BaseMVPActivity<BookContract.View, BookPresenter>(), BookContract.View {
+
+    override fun getContext(): Context = this
+    override var mPresenter = BookPresenter()
+
+
+/*
     override fun onAttachView() {
         presenter.onAttach(this)
     }
@@ -15,27 +22,30 @@ class BookActivity : AppCompatActivity(), BookContract.View {
     override fun onDetachView() {
         presenter.onDetach()
     }
+*/
 
+/*
     override fun onDestroy() {
         onDetachView()
         super.onDestroy()
     }
+*/
 
 
-    lateinit var presenter: BookPresenter
+//    var presenter: BookPresenter = BookPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_book)
 
         bookEtSearch.setText("9780345472328")
-        presenter = BookPresenter()
-        onAttachView()
+//        presenter = BookPresenter()
 
 
         bookBtnSearch.setOnClickListener {
             val isbn = bookEtSearch.text.toString().trim()
-            presenter.onSearch(isbn)
+            mPresenter.onSearch(isbn)
 
         }
 
