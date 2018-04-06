@@ -32,7 +32,7 @@ class RoomRvAdapter(val mValues: List<RoomMdl>, var mListener: RVListener) : Rec
 
         holder.mView.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {
-                mListener?.onEdit(item, position)
+                mListener?.onUpdate(item, position)
             }
         })
 
@@ -67,6 +67,6 @@ class RoomRvAdapter(val mValues: List<RoomMdl>, var mListener: RVListener) : Rec
 
     interface RVListener {
         fun onDelete(item: RoomMdl, position: Int)
-        fun onEdit(item: RoomMdl, position: Int)
+        fun onUpdate(item: RoomMdl, position: Int)
     }
 }

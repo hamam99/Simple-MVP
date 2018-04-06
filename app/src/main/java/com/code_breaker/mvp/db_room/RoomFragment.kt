@@ -40,6 +40,10 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         roomRv?.adapter = adapter
         adapter?.mListener = this
 
+        val db = RoomDb.getAppDatabase(activity)
+        mPresenter?.setDb(db)
+        mPresenter.loadAll()
+
         roomAdd?.setOnClickListener {
             val title = roomTitle?.text.toString().trim()
             val author = roomAuthor?.text.toString().trim()
@@ -53,9 +57,19 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
 
         }
 
-        val db = RoomDb.getAppDatabase(activity)
-        mPresenter?.setDb(db)
-        mPresenter.loadAll()
+        roomUpdate?.setOnClickListener {
+            val title = roomTitle?.text.toString().trim()
+            val author = roomAuthor?.text.toString().trim()
+            val publisher = roomPublisher?.text.toString().trim()
+
+            var roomMdl = RoomMdl()
+            roomMdl.title = title
+            roomMdl.author = author
+            roomMdl.publisher = publisher
+            roomMdl.id = itemId
+            mPresenter.onUpdate(roomMdl)
+
+        }
 
 
     }
@@ -101,6 +115,14 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         adapter?.notifyDataSetChanged()
     }
 
+    override fun onUpdateSuccess(message: String) {
+        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
+
+        roomTitle?.setText(null)
+        roomAuthor?.setText(null)
+        roomPublisher?.setText(null)
+    }
+
 
     companion object {
 
@@ -129,9 +151,16 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
                 .show()
     }
 
-    override fun onEdit(item: RoomMdl, position: Int) {
 
+    override fun onUpdate(item: RoomMdl, position: Int) {
+        roomTitle?.setText(item?.title)
+        roomAuthor?.setText(item?.author)
+        roomPublisher?.setText(item?.publisher)
+
+        itemId = item?.id
     }
+
+    var itemId = 0
 
 }
 

@@ -6,6 +6,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Interactor {
+
+    override fun onUpdate(roomMdl: RoomMdl) {
+        if (!roomMdl.author.isNullOrBlank() || !roomMdl.publisher.isNullOrBlank() || !roomMdl.title.isNullOrBlank()) {
+            Observable.just(roomMdl)
+//                    .observeOn(Schedulers.io())
+//                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ roomMdl ->
+                        presenter?.getDb()?.bookDao()?.update(roomMdl)
+                        presenter.onUpdateSuccess("Update success!")
+                        loadAll()
+                    }, { throwable ->
+                        throwable.printStackTrace()
+                        presenter.onError(throwable.localizedMessage)
+                    })
+        } else {
+            presenter.onError("There are empty field")
+        }
+    }
+
     override fun delete(roomMdl: RoomMdl) {
         Observable.just(roomMdl)
                 .subscribeOn(Schedulers.io())
@@ -36,7 +57,6 @@ class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Inter
 
 
     override fun loadAll() {
-        Log.e("TAG", "Interactor : Load All 1")
         presenter?.getDb()?.bookDao()?.getAll
 //                ?.subscribeOn(AndroidSchedulers.mainThread())
 //                ?.observeOn(Schedulers.io())
@@ -45,21 +65,15 @@ class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Inter
                 ?.subscribe({ roomMdl ->
                     presenter?.loadAllSuccess(roomMdl)
                     presenter?.onSuccess("All data loaded!")
-                    Log.e("TAG", "Interactor : Load All 2")
                 }, { throwable ->
                     throwable.printStackTrace()
                     presenter.onError(throwable.localizedMessage)
-                    Log.e("TAG", "Interactor : Load All 3")
                 })
     }
 
     override fun insert(roomMdl: RoomMdl) {
-//        Log.e("TAG", " I am on interactor! 1")
-
         if (!roomMdl.author.isNullOrBlank() || !roomMdl.publisher.isNullOrBlank() || !roomMdl.title.isNullOrBlank()) {
             Observable.just(roomMdl)
-//                    .observeOn(Schedulers.io())
-//                    .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ roomMdl ->
@@ -70,12 +84,9 @@ class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Inter
                         throwable.printStackTrace()
                         presenter.onError(throwable.localizedMessage)
                     })
-//            Log.e("TAG", " I am on interactor! 2")
         } else {
-            presenter.onError("masih ada yang kosong!")
-//            Log.e("TAG", " I am on interactor! 3")
+            presenter.onError("There are empty field")
         }
-//        presenter.onSearchSuccess("Room interactor was here")
 
     }
 

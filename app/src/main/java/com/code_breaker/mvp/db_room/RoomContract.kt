@@ -18,6 +18,9 @@ interface RoomContract {
 
         fun onSuccess(message: String)
         fun onError(message: String)
+
+        fun onUpdateSuccess(message:String)
+
     }
 
     interface Presenter : BasePresenter<View> {
@@ -31,6 +34,9 @@ interface RoomContract {
         fun searchSuccess(rooms: List<RoomMdl>)
 
         fun delete(roomMdl: RoomMdl)
+
+        fun onUpdate(roomMdl: RoomMdl)
+        fun onUpdateSuccess(message:String)
 
         fun onSuccess(message: String)
         fun onError(message: String)
@@ -49,6 +55,6 @@ interface RoomContract {
         fun search(title: String)
         fun loadLatest()
         fun delete(roomMdl: RoomMdl)
-
+        fun onUpdate(roomMdl: RoomMdl)
     }
 }
