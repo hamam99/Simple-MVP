@@ -6,8 +6,8 @@ import com.code_breaker.mvp.db_room.db.RoomDb
 class RoomPresenter(): RoomContract.Presenter {
 
     var roomDb: RoomDb? = null
-
     var view: RoomContract.View? = null
+    var interactor = RoomInteractor(this)
 
     override fun setDb(db: RoomDb) {
         roomDb = db
@@ -18,16 +18,12 @@ class RoomPresenter(): RoomContract.Presenter {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    var interactor = RoomInteractor(this,roomDb)
-
     override fun onSuccess(message: String) {
         view?.onSuccess(message)
     }
 
     override fun onError(message: String) {
         view?.onError(message)
-        Log.e("TAG"," I am on Error! 1")
-
     }
 
     override fun searchSuccess(rooms: List<RoomMdl>) {
@@ -36,17 +32,18 @@ class RoomPresenter(): RoomContract.Presenter {
 
 
     override fun loadAll() {
+        Log.e("TAG","Presenter : Load All 1")
         interactor?.loadAll()
     }
 
     override fun loadAllSuccess(rooms: List<RoomMdl>) {
         view?.loadAll(rooms)
+        Log.e("TAG","Presenter : Load All 2")
+
     }
 
 
     override fun insert(roomMdl: RoomMdl) {
-        Log.e("TAG"," I am on insert! 1")
-
         interactor.insert(roomMdl)
     }
 
@@ -69,6 +66,14 @@ class RoomPresenter(): RoomContract.Presenter {
 
     override fun onDetach() {
         this.view = null
+    }
+
+    override fun loadLatest() {
+        interactor?.loadLatest()
+    }
+
+    override fun loadLatestSuccess(rooms: RoomMdl) {
+
     }
 
 }

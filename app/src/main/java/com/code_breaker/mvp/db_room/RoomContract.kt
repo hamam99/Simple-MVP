@@ -11,6 +11,7 @@ import com.code_breaker.mvp.db_room.db.RoomDb
 interface RoomContract {
     interface View : BaseView {
         fun loadAll(rooms: List<RoomMdl>)
+        fun loadLatest(rooms: RoomMdl)
         fun search(rooms: List<RoomMdl>)
         fun insertSuccess(message: String)
         fun clearScreen()
@@ -37,12 +38,16 @@ interface RoomContract {
         fun setDb(db: RoomDb)
         fun getDb(): RoomDb?
 
+        fun loadLatest()
+        fun loadLatestSuccess(rooms: RoomMdl)
+
     }
 
     interface Interactor {
         fun loadAll()
         fun insert(roomMdl: RoomMdl)
         fun search(title: String)
+        fun loadLatest()
 
     }
 }

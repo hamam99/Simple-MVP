@@ -23,16 +23,20 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         return view
     }
 
+    var adapter: RoomRvAdapter? = null
+    var list: ArrayList<RoomMdl> = ArrayList()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val db = RoomDb.getAppDatabase(activity)
-        mPresenter?.setDb(db)
 
         //for testing
         roomTitle.setText("Harry Potter ")
         roomAuthor.setText("JK Rowling")
         roomPublisher.setText("Gak tahu")
+
+        adapter = RoomRvAdapter(list)
+        roomRv?.adapter = adapter
 
         roomAdd?.setOnClickListener {
             val title = roomTitle?.text.toString().trim()
@@ -47,19 +51,26 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
 
         }
 
+        val db = RoomDb.getAppDatabase(activity)
+        mPresenter?.setDb(db)
+        mPresenter.loadAll()
 
     }
 
     override fun insertSuccess(message: String) {
-        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
-//        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
+//        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
+        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
         roomTitle?.setText(null)
         roomAuthor?.setText(null)
         roomPublisher?.setText(null)
     }
 
     override fun loadAll(rooms: List<RoomMdl>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (list.isNotEmpty()) list.clear()
+        list.addAll(rooms)
+        adapter?.notifyDataSetChanged()
+        Log.e("TAG","Fragment : Load All 1")
+
     }
 
     override fun search(rooms: List<RoomMdl>) {
@@ -84,6 +95,12 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
         Log.e("TAG", " I am on Error! 1_1")
     }
+
+    override fun loadLatest(rooms: RoomMdl) {
+        list.add(rooms)
+        adapter?.notifyDataSetChanged()
+    }
+
 
     companion object {
 
