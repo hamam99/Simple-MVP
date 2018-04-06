@@ -2,25 +2,20 @@ package com.code_breaker.mvp.db_room
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.code_breaker.mvp.R
-import com.code_breaker.mvp.db_room.db.RoomContract
+import com.code_breaker.mvp.base.BaseMVPFragment
 import com.code_breaker.mvp.db_room.db.RoomDb
 import kotlinx.android.synthetic.main.fragment_room_main.*
 
 
-class RoomFragment : Fragment(), RoomContract.View {
+public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(), RoomContract.View {
 
-    lateinit var presenter: RoomPresenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override var mPresenter: RoomPresenter = RoomPresenter()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,8 +27,12 @@ class RoomFragment : Fragment(), RoomContract.View {
         super.onActivityCreated(savedInstanceState)
 
         val db = RoomDb.getAppDatabase(activity)
-        presenter = RoomPresenter(db)
-//        presenter?.setDb(db)
+        mPresenter?.setDb(db)
+
+        //for testing
+        roomTitle.setText("Harry Potter ")
+        roomAuthor.setText("JK Rowling")
+        roomPublisher.setText("Gak tahu")
 
         roomAdd?.setOnClickListener {
             val title = roomTitle?.text.toString().trim()
@@ -44,18 +43,16 @@ class RoomFragment : Fragment(), RoomContract.View {
             roomMdl.title = title
             roomMdl.author = author
             roomMdl.publisher = publisher
-            presenter?.insert(roomMdl)
+            mPresenter?.insert(roomMdl)
 
-
-            Toast.makeText(activity,"add",Toast.LENGTH_SHORT).show()
         }
 
 
     }
 
     override fun insertSuccess(message: String) {
-//        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
-        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show()
+        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
+//        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
         roomTitle?.setText(null)
         roomAuthor?.setText(null)
         roomPublisher?.setText(null)
@@ -79,29 +76,14 @@ class RoomFragment : Fragment(), RoomContract.View {
     }
 
     override fun onSuccess(message: String) {
-        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onError(message: String) {
 //        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
-        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show()
-        Log.e("TAG"," I am on Error! 1_1")
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        Log.e("TAG", " I am on Error! 1_1")
     }
-
-    override fun onAttachView() {
-        presenter?.onAttach(this)
-    }
-
-
-    override fun onDetachView() {
-        presenter?.onDetach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onDetachView()
-    }
-
 
     companion object {
 

@@ -13,40 +13,16 @@ class BookActivity : BaseMVPActivity<BookContract.View, BookPresenter>(), BookCo
     override fun getContext(): Context = this
     override var mPresenter = BookPresenter()
 
-
-/*
-    override fun onAttachView() {
-        presenter.onAttach(this)
-    }
-
-    override fun onDetachView() {
-        presenter.onDetach()
-    }
-*/
-
-/*
-    override fun onDestroy() {
-        onDetachView()
-        super.onDestroy()
-    }
-*/
-
-
-//    var presenter: BookPresenter = BookPresenter()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_book)
 
         bookEtSearch.setText("9780345472328")
-//        presenter = BookPresenter()
-
 
         bookBtnSearch.setOnClickListener {
             val isbn = bookEtSearch.text.toString().trim()
             mPresenter.onSearch(isbn)
-
         }
 
     }

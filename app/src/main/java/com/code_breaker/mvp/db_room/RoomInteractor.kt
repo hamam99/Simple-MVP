@@ -1,7 +1,6 @@
 package com.code_breaker.mvp.db_room
 
 import android.util.Log
-import com.code_breaker.mvp.db_room.db.RoomContract
 import com.code_breaker.mvp.db_room.db.RoomDb
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,8 +30,10 @@ class RoomInteractor(var presenter: RoomContract.Presenter, var dao: RoomDb?) : 
 
         if (!roomMdl.author.isNullOrBlank() || !roomMdl.publisher.isNullOrBlank() || !roomMdl.title.isNullOrBlank()) {
             Observable.just(roomMdl)
-                    .observeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+//                    .observeOn(Schedulers.io())
+//                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ roomMdl ->
                         dao?.bookDao()?.insert(roomMdl)
                         presenter.insertSuccess("Insert Success!!!")

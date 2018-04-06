@@ -1,21 +1,20 @@
 package com.code_breaker.mvp.db_room
 
 import android.util.Log
-import com.code_breaker.mvp.db_room.db.RoomContract
 import com.code_breaker.mvp.db_room.db.RoomDb
 
-class RoomPresenter(var roomDb: RoomDb): RoomContract.Presenter {
+class RoomPresenter(): RoomContract.Presenter {
 
-//    var roomDb: RoomDb? = null
+    var roomDb: RoomDb? = null
 
     var view: RoomContract.View? = null
 
     override fun setDb(db: RoomDb) {
-//        roomDb = db
+        roomDb = db
     }
 
     override fun getDb(): RoomDb? {
-//        return roomDb
+        return roomDb
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
