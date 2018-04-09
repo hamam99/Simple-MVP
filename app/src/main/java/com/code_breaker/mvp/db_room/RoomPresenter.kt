@@ -4,6 +4,7 @@ import android.util.Log
 import com.code_breaker.mvp.db_room.db.RoomDb
 
 class RoomPresenter(): RoomContract.Presenter {
+
     var roomDb: RoomDb? = null
     var view: RoomContract.View? = null
     var interactor = RoomInteractor(this)
@@ -75,11 +76,13 @@ class RoomPresenter(): RoomContract.Presenter {
         view?.loadLatest(rooms)
     }
 
-    override fun onUpdate(roomMdl: RoomMdl) {
-        interactor?.onUpdate(roomMdl)
+    override fun onUpdate(item: RoomMdl, position: Int) {
+        interactor?.onUpdate(item,position)
     }
-    override fun onUpdateSuccess(message: String) {
-        view?.onUpdateSuccess(message)
+
+
+    override fun onUpdateSuccess(item: RoomMdl, position: Int) {
+        view?.onUpdateSuccess(item,position)
     }
 
 

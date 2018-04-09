@@ -1,13 +1,12 @@
 package com.code_breaker.mvp.db_room
 
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Interactor {
 
-    override fun onUpdate(roomMdl: RoomMdl) {
+    override fun onUpdate(roomMdl: RoomMdl, position: Int) {
         if (!roomMdl.author.isNullOrBlank() || !roomMdl.publisher.isNullOrBlank() || !roomMdl.title.isNullOrBlank()) {
             Observable.just(roomMdl)
 //                    .observeOn(Schedulers.io())
@@ -16,8 +15,7 @@ class RoomInteractor(var presenter: RoomContract.Presenter) : RoomContract.Inter
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ roomMdl ->
                         presenter?.getDb()?.bookDao()?.update(roomMdl)
-                        presenter.onUpdateSuccess("Update success!")
-                        loadAll()
+                        presenter?.onUpdateSuccess(roomMdl, position)
                     }, { throwable ->
                         throwable.printStackTrace()
                         presenter.onError(throwable.localizedMessage)

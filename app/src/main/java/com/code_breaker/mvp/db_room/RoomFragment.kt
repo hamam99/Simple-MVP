@@ -67,7 +67,7 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
             roomMdl.author = author
             roomMdl.publisher = publisher
             roomMdl.id = itemId
-            mPresenter.onUpdate(roomMdl)
+            mPresenter.onUpdate(roomMdl,position)
 
         }
 
@@ -115,13 +115,27 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         adapter?.notifyDataSetChanged()
     }
 
-    override fun onUpdateSuccess(message: String) {
-        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
+    override fun onUpdateSuccess(item: RoomMdl, position: Int) {
+        Toast.makeText(mActivity, "Update success!", Toast.LENGTH_SHORT).show()
 
         roomTitle?.setText(null)
         roomAuthor?.setText(null)
         roomPublisher?.setText(null)
+
+
+//        list?.addA
+        list.removeAt(position)
+        list.add(position, item)
+        adapter?.notifyDataSetChanged()
+        itemId = -1
+        this@RoomFragment.position = -1
+
     }
+
+    var itemId = -1
+    var position = -1
+
+
 
 
     companion object {
@@ -156,11 +170,12 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         roomTitle?.setText(item?.title)
         roomAuthor?.setText(item?.author)
         roomPublisher?.setText(item?.publisher)
-
         itemId = item?.id
-    }
+        this@RoomFragment.position = position
 
-    var itemId = 0
+//        list.removeAt(position)
+//        list.add(position,item)
+    }
 
 }
 
