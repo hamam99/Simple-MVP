@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.code_breaker.mvp.R
+import com.code_breaker.mvp.db_room.db.RoomMdl
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the

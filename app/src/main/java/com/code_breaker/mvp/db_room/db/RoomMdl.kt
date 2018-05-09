@@ -1,4 +1,4 @@
-package com.code_breaker.mvp.db_room
+package com.code_breaker.mvp.db_room.db
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

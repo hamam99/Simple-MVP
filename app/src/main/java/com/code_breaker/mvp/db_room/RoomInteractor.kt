@@ -1,5 +1,6 @@
 package com.code_breaker.mvp.db_room
 
+import com.code_breaker.mvp.db_room.db.RoomMdl
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

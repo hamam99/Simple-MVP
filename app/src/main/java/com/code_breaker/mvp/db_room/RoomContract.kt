@@ -3,6 +3,7 @@ package com.code_breaker.mvp.db_room
 import com.code_breaker.mvp.base.BasePresenter
 import com.code_breaker.mvp.base.BaseView
 import com.code_breaker.mvp.db_room.db.RoomDb
+import com.code_breaker.mvp.db_room.db.RoomMdl
 
 /**
  * Created by akira on 26/03/18.

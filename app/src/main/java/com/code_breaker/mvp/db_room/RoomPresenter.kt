@@ -2,6 +2,7 @@ package com.code_breaker.mvp.db_room
 
 import android.util.Log
 import com.code_breaker.mvp.db_room.db.RoomDb
+import com.code_breaker.mvp.db_room.db.RoomMdl
 
 class RoomPresenter(): RoomContract.Presenter {
 

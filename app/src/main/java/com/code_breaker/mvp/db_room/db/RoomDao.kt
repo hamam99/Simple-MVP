@@ -1,7 +1,6 @@
 package com.code_breaker.mvp.db_room.db
 
 import android.arch.persistence.room.*
-import com.code_breaker.mvp.db_room.RoomMdl
 import io.reactivex.Flowable
 
 /**

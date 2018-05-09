@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.code_breaker.mvp.R
 import com.code_breaker.mvp.base.BaseMVPFragment
 import com.code_breaker.mvp.db_room.db.RoomDb
+import com.code_breaker.mvp.db_room.db.RoomMdl
 import kotlinx.android.synthetic.main.fragment_room_main.*
 
 
