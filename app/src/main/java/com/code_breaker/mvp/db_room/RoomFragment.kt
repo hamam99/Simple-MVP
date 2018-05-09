@@ -33,9 +33,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
 
 
         //for testing
-        roomTitle.setText("Harry Potter ")
-        roomAuthor.setText("JK Rowling")
-        roomPublisher.setText("Gak tahu")
+        realmTitle.setText("Harry Potter ")
+        realmAuthor.setText("JK Rowling")
+        realmPublisher.setText("Gak tahu")
 
         adapter = RoomRvAdapter(list, this)
         roomRv?.adapter = adapter
@@ -45,10 +45,10 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         mPresenter?.setDb(db)
         mPresenter.loadAll()
 
-        roomAdd?.setOnClickListener {
-            val title = roomTitle?.text.toString().trim()
-            val author = roomAuthor?.text.toString().trim()
-            val publisher = roomPublisher?.text.toString().trim()
+        realmAdd?.setOnClickListener {
+            val title = realmTitle?.text.toString().trim()
+            val author = realmAuthor?.text.toString().trim()
+            val publisher = realmPublisher?.text.toString().trim()
 
             var roomMdl = RoomMdl()
             roomMdl.title = title
@@ -59,9 +59,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
         }
 
         roomUpdate?.setOnClickListener {
-            val title = roomTitle?.text.toString().trim()
-            val author = roomAuthor?.text.toString().trim()
-            val publisher = roomPublisher?.text.toString().trim()
+            val title = realmTitle?.text.toString().trim()
+            val author = realmAuthor?.text.toString().trim()
+            val publisher = realmPublisher?.text.toString().trim()
 
             var roomMdl = RoomMdl()
             roomMdl.title = title
@@ -78,9 +78,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
     override fun insertSuccess(message: String) {
 //        Snackbar.make(main_layout, message, Snackbar.LENGTH_SHORT).show()
         Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show()
-        roomTitle?.setText(null)
-        roomAuthor?.setText(null)
-        roomPublisher?.setText(null)
+        realmTitle?.setText(null)
+        realmAuthor?.setText(null)
+        realmPublisher?.setText(null)
     }
 
     override fun loadAll(rooms: List<RoomMdl>) {
@@ -119,9 +119,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
     override fun onUpdateSuccess(item: RoomMdl, position: Int) {
         Toast.makeText(mActivity, "Update success!", Toast.LENGTH_SHORT).show()
 
-        roomTitle?.setText(null)
-        roomAuthor?.setText(null)
-        roomPublisher?.setText(null)
+        realmTitle?.setText(null)
+        realmAuthor?.setText(null)
+        realmPublisher?.setText(null)
 
 
 //        list?.addA
@@ -168,9 +168,9 @@ public class RoomFragment : BaseMVPFragment<RoomContract.View, RoomPresenter>(),
 
 
     override fun onUpdate(item: RoomMdl, position: Int) {
-        roomTitle?.setText(item?.title)
-        roomAuthor?.setText(item?.author)
-        roomPublisher?.setText(item?.publisher)
+        realmTitle?.setText(item?.title)
+        realmAuthor?.setText(item?.author)
+        realmPublisher?.setText(item?.publisher)
         itemId = item?.id
         this@RoomFragment.position = position
 

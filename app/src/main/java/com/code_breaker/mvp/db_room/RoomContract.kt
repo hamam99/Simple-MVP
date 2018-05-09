@@ -25,6 +25,7 @@ interface RoomContract {
     }
 
     interface Presenter : BasePresenter<View> {
+
         fun loadAll()
         fun loadAllSuccess(rooms: List<RoomMdl>)
 
