@@ -14,18 +14,21 @@ class RealmInteractor(var mPresenter: RealmContract.Presenter) : RealmContract.I
             mPresenter?.onError("Masih ada yang  belum di isi!")
         } else {
             realm?.executeTransactionAsync(Realm.Transaction { bgRealm ->
-                //                var dt= bgRealm.createObject(RealmMdl::class.java)
-//                bgRealm.copyFromRealm(data)   //berat klo pake primary key
                 bgRealm.insert(data)
-                Log.e("TAG", "author : ${data.id}")
+//                Log.e("TAG", "author : ${data.id}")
             }, OnSuccess {
                 // Transaction was a success.
                 mPresenter?.insertRes()
             }, OnError {
-                mPresenter?.onError("Insert gagal!!")
+                mPresenter?.onError("Insert failed!!")
                 it.printStackTrace()
             })
-
+/*
+            realm?.executeTransaction {
+                realm.insert(data)
+                mPresenter?.insertRes()
+            }
+*/
         }
     }
 
@@ -39,6 +42,12 @@ class RealmInteractor(var mPresenter: RealmContract.Presenter) : RealmContract.I
     }
 
     override fun delete(data: RealmMdl) {
+        val realm = mPresenter?.mView?.getRealm()
+        val result = realm?.where(RealmMdl::class.java)?.equalTo("id", data?.id)?.findAll()
+        realm?.executeTransaction {
+            result?.deleteAllFromRealm();
+            mPresenter?.deleteRes()
+        }
     }
 
 }

@@ -33,6 +33,7 @@ interface RealmContract {
         fun insert(data: RealmMdl)
         fun insertRes()
 
+
         fun getAll()
         fun getAllSuccess(realms : RealmResults<RealmMdl>)
 

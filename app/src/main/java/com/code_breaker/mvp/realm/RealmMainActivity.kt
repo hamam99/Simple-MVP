@@ -1,6 +1,8 @@
 package com.code_breaker.mvp.realm
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
 import com.code_breaker.mvp.R
 import com.code_breaker.mvp.base.BaseMVPActivity
@@ -12,7 +14,7 @@ import java.util.*
 
 class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(), RealmContract.View, RealmRvAdapter.RVListener {
     override fun cleanScreen() {
-        realmTitle?.setText(null)
+        realmTitle?.text = null
         realmAuthor?.setText(null)
         realmPublisher?.setText(null)
     }
@@ -29,11 +31,18 @@ class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(),
         toast(message)
     }
 
-    override fun onDelete(item: RealmMdl, position: Int) {
+    override fun onDelete(item: RealmMdl) {
+        val dialog = AlertDialog.Builder(this)
+        dialog?.setMessage("Do you want to delete '${item.title}' ?")
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
+                    mPresenter?.delete(item)
+                })
+                .setNegativeButton("No", null)
+                .show()
 
     }
 
-    override fun onUpdate(item: RealmMdl, position: Int) {
+    override fun onUpdate(item: RealmMdl) {
     }
 
     override fun getRealm(): Realm {
@@ -57,6 +66,8 @@ class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(),
     }
 
     override fun delete() {
+        mPresenter?.onSuccess("Item deleted succesfully !")
+        mPresenter?.getAll()
     }
 
     var list: ArrayList<RealmMdl> = ArrayList()

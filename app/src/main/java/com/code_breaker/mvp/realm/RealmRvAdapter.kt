@@ -30,13 +30,13 @@ class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : R
 
         holder.mView.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {
-                mListener?.onUpdate(item, position)
+                mListener?.onUpdate(item)
             }
         })
 
         holder.mView.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
-                mListener?.onDelete(item, position)
+                mListener?.onDelete(item)
                 return true
             }
         })
@@ -66,7 +66,7 @@ class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : R
     }
 
     interface RVListener {
-        fun onDelete(item: RealmMdl, position: Int)
-        fun onUpdate(item: RealmMdl, position: Int)
+        fun onDelete(item: RealmMdl)
+        fun onUpdate(item: RealmMdl)
     }
 }
