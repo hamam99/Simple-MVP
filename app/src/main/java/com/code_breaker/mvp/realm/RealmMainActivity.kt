@@ -1,15 +1,26 @@
 package com.code_breaker.mvp.realm
 
 import android.os.Bundle
+import android.view.View
 import com.code_breaker.mvp.R
 import com.code_breaker.mvp.base.BaseMVPActivity
 import io.realm.Realm
 import io.realm.RealmResults
-import kotlinx.android.synthetic.main.fragment_room_main.*
+import kotlinx.android.synthetic.main.activity_realm_main.*
 import org.jetbrains.anko.toast
 import java.util.*
 
 class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(), RealmContract.View, RealmRvAdapter.RVListener {
+    override fun cleanScreen() {
+        realmTitle?.setText(null)
+        realmAuthor?.setText(null)
+        realmPublisher?.setText(null)
+    }
+
+    override fun hideKeyboards(view: View?) {
+        super.hideKeyboard(view)
+    }
+
     override fun onError(message: String) {
         toast(message)
     }
@@ -33,9 +44,16 @@ class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(),
 
     override fun insertRes() {
         toast("insert berhasil!")
+        mPresenter?.getAll()
+        mPresenter?.cleanScreen()
     }
 
     override fun getAll(result: RealmResults<RealmMdl>?) {
+
+        list.clear()
+        list.addAll(result!!)
+
+        adapter?.notifyDataSetChanged()
     }
 
     override fun delete() {
@@ -50,17 +68,21 @@ class RealmMainActivity : BaseMVPActivity<RealmContract.View, RealmPresenter>(),
 
         Realm.init(this)
 
-        roomRv?.adapter = adapter
+        realmRv?.adapter = adapter
         adapter?.mListener = this
+
+        mPresenter?.getAll()
 
 
         realmAdd?.setOnClickListener {
             var data = RealmMdl()
 //            data?.id = UUID.randomUUID().toString();
-            data?.author = "author"
-            data?.publisher = "Publisher"
-            data?.title = "title"
+            data?.author = realmTitle?.text.toString().trim()
+            data?.publisher = realmPublisher?.text.toString().trim()
+            data?.title = realmTitle?.text.toString().trim()
             mPresenter?.insert(data)
+
+            mPresenter?.hideKeyboard(realmTitle)
         }
     }
 }

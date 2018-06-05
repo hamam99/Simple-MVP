@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.code_breaker.mvp.R
-import com.code_breaker.mvp.db_room.db.RoomMdl
 
 class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : RecyclerView.Adapter<RealmRvAdapter.ViewHolder>() {
 
@@ -25,6 +24,9 @@ class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : R
         holder.mTitle.text = item.title.toString()
         holder.mAuthor.text = item.author.toString()
         holder.mPublisher.text = item.publisher.toString()
+
+        holder?.mId.visibility = View.GONE
+        holder?.mIdLayout.visibility = View.GONE
 
         holder.mView.setOnClickListener(object : View.OnClickListener {
             public override fun onClick(v: View) {
@@ -47,6 +49,7 @@ class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : R
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mId: TextView
+        val mIdLayout: TextView
         val mTitle: TextView
         val mAuthor: TextView
         val mPublisher: TextView
@@ -54,6 +57,7 @@ class RealmRvAdapter(val mValues: List<RealmMdl>, var mListener: RVListener) : R
 
         init {
             mId = mView.findViewById(R.id.id) as TextView
+            mIdLayout = mView.findViewById(R.id.textView8) as TextView
             mTitle = mView.findViewById(R.id.title) as TextView
             mAuthor = mView.findViewById(R.id.author) as TextView
             mPublisher = mView.findViewById(R.id.publisher) as TextView

@@ -33,7 +33,9 @@
             </intent-filter>
 -->
         </activity>
-        <activity android:name=".realm.RealmMainActivity">
+        <activity android:name=".realm.RealmMainActivity"
+            android:label="Realm DB"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

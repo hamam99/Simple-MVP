@@ -1,6 +1,21 @@
 package com.code_breaker.mvp.realm
 
+import android.view.View
+import io.realm.RealmResults
+
 class RealmPresenter() : RealmContract.Presenter {
+    override fun cleanScreen() {
+        mView?.cleanScreen()
+    }
+
+    override fun hideKeyboard(view: View?) {
+        mView?.hideKeyboards(view)
+    }
+
+    override fun getAllSuccess(realms: RealmResults<RealmMdl>) {
+        mView?.getAll(realms)
+    }
+
     override fun onError(message: String) {
         mView?.onError(message)
     }
@@ -21,7 +36,7 @@ class RealmPresenter() : RealmContract.Presenter {
     }
 
     override fun getAll() {
-        mView?.getAll(mInteractor?.getAll())
+        mInteractor?.getAll()
     }
 
     override fun delete(data: RealmMdl) {
